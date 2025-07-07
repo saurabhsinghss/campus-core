@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 import './App.css';
 
 const App = () => {
   const [facultyID, setFacultyID] = useState("");
   const [password, setPassword] = useState("");
   const [isFaculty, setIsFaculty] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
+
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -68,35 +72,39 @@ const App = () => {
           {/* Grows to fill space and push footer */}
           <div className="flex-grow-1 d-flex flex-column justify-content-space-between">
             <form onSubmit={handleLogin}>
-              <div className="mb-3">
-                <label className="form-label">{isFaculty ? "Faculty" : "Student"} ID or Email</label>
-                <input
-                  type="text"
-                className="form-control"
-                placeholder="Enter your Faculty ID or email"
-                
-                  value={facultyID}
-                  onChange={(e) => setFacultyID(e.target.value)}
-                  required
-                />
-              </div>
+             <div className="mb-3 position-relative">
+  <label className="form-label">Faculty ID or Email</label>
+  <input
+    type="text"
+    className="form-control pe-5"
+    value={facultyID}
+    onChange={(e) => setFacultyID(e.target.value)}
+    required
+  />
+  <i className="fas fa-user position-absolute end-0 top-50 translate-middle-y me-3 text-muted"></i>
+</div>
 
-              <div className="mb-3">
-                <label className="form-label">Password</label>
-                <input
-                  type="password"
-                  className="form-control"
-                value={password}
-                placeholder="Enter your password"
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-                <div className="text-end">
-                  <small className="text-primary" style={{ cursor: "pointer" }}>
-                    Forgot password?
-                  </small>
-                </div>
-              </div>
+
+              <div className="mb-3 position-relative">
+  <label className="form-label">Password</label>
+  <input
+    type={showPassword ? "text" : "password"}
+    className="form-control pe-5"
+    value={password}
+    onChange={(e) => setPassword(e.target.value)}
+    required
+  />
+  <i
+    className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"} position-absolute end-0 top-50 translate-middle-y me-3 text-muted`}
+    style={{ cursor: "pointer" }}
+    onClick={() => setShowPassword(!showPassword)}
+  ></i>
+
+  <div className="text-end mt-1">
+    <small className="text-primary" style={{ cursor: 'pointer' }}>Forgot password?</small>
+  </div>
+</div>
+
 
               <div className="form-check mb-3 rem">
                 <input type="checkbox" className="form-check-input" id="remember" />
@@ -127,8 +135,8 @@ const App = () => {
          
         </div>
          <footer className="text-center text-muted small pt-4 mt-4 border-top f_1" >
-         <div> Designed and developed by ZoroTeam</div>
-         <div>SAURABH SINGH</div>
+         <div>Designed and developed by ZoroTeam</div>
+         <div className="your-name">SAURABH SINGH</div>
            <div>© 2025 Zoro innovations</div>
           </footer>
       </div>
